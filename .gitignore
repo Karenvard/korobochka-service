@@ -1,0 +1,115 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Build directories
+build/
+Build/
+out/
+bin/
+obj/
+cmake-build-*/
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
+install_manifest.txt
+CTestTestfile.cmake
+Testing/
+compile_commands.json
+_deps/
+
+# Make / Ninja
+Makefile.in
+.ninja_deps
+.ninja_log
+build.ninja
+
+# Object files
+*.o
+*.obj
+*.lo
+*.slo
+*.ko
+*.elf
+
+# Precompiled headers
+*.gch
+*.pch
+
+# Libraries
+*.a
+*.lib
+*.la
+*.so
+*.so.*
+*.dylib
+*.dll
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Debug / profiling
+*.dSYM/
+*.pdb
+*.ilk
+*.idb
+*.exp
+*.gcda
+*.gcno
+*.gcov
+*.profraw
+*.profdata
+core
+core.*
+vgcore.*
+callgrind.out.*
+
+# Dependency files
+*.d
+
+# Logs and temp
+*.log
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# IDEs / editors
+.vscode/
+.idea/
+*.code-workspace
+.cache/
+.clangd/
+.vs/
+*.suo
+*.user
+*.sln.docstates
+*.vcxproj.filters
+*.vcxproj.user
+
+# Xcode
+xcuserdata/
+*.xcuserstate
+DerivedData/
+*.xcworkspace/xcuserdata/
+
+# CLion
+cmake-build-debug/
+cmake-build-release/
+
+# Package managers
+vcpkg_installed/
+conan.lock
+conanbuildinfo.*
+conaninfo.txt
+CMakeUserPresets.json
