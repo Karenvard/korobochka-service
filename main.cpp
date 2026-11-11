@@ -1,12 +1,13 @@
 #include <iostream> // для вводу-виводу
-#include <string> 
+#include <string>
 #include <cmath>
 #include <iomanip> // для форматування виводу
 #include <limits> // для numeric_limits
 #include <chrono> // для роботи з часом
 #include <random> // для генерації випадкових чисел
-#include <cctype> // для функцій перевірки символів 
-#ifdef _WIN32 
+#include <cctype> // для функцій перевірки символів
+#include <algorithm>
+#ifdef _WIN32
 #define NOMINMAX // для уникнення конфлікту з min/max
 #include <windows.h>
 #endif
@@ -21,6 +22,7 @@ const double PRICE_PER_KM = 8;
 const double PRICE_PER_KG = 5;
 const double AVG_SPEED = 25;
 const int SECONDS_PER_MINUTE = 20;
+const int MIN_DELIVERY_MINUTES = 1;
 
 struct Street {
     string name; double x, y;
@@ -130,10 +132,9 @@ bool validClientName(const string& name) {
             if (previousSpace || previousApostrophe) return false;
             previousSpace = true;
         }
-        else if (cp == '\''  cp == 0x2019  cp == 0x02BC) {
+        else if (cp == '\'' || cp == 0x2019 || cp == 0x02BC) {
             if (previousSpace || previousApostrophe) return false;
             previousApostrophe = true;
-        }
         }
         else if ((cp >= 'A' && cp <= 'Z') ||
             (cp >= 'a' && cp <= 'z') ||
@@ -304,7 +305,7 @@ void startDelivery(Order& o) {
     courierX[c] = o.fromX; courierY[c] = o.fromY;
     o.status = "В дорозі";
     double km = distance(o.fromX, o.fromY, o.toX, o.toY);
-    o.etaMinutes = arrivalTime(km);
+    o.etaMinutes = max(MIN_DELIVERY_MINUTES, arrivalTime(km));
     o.deliveryStart = Clock::now();
     cout << "\nДоставку розпочато! Статус: В дорозі\n"
         << "Адреса отримання: " << o.toAddress << '\n'
