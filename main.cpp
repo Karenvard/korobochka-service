@@ -5,6 +5,7 @@
 #include <limits> // для numeric_limits
 #include <chrono> // для роботи з часом
 #include <random> // для генерації випадкових чисел
+#include <cctype> // для функцій перевірки символів 
 #ifdef _WIN32 
 #define NOMINMAX // для уникнення конфлікту з min/max
 #include <windows.h>
@@ -199,9 +200,15 @@ int findCourier(double x, double y) {
     }
     return best;
 }
+string toUpper(string text) {
+    for (char& c : text)
+        c = static_cast<char>(toupper(static_cast<unsigned char>(c)));
+    return text;
+}
 int findOrder(const string& number) {
+    const string key = toUpper(number);
     for (int i = 0;i < orderCount;i++)
-        if (orders[i].trackingNumber == number) return i;
+        if (orders[i].trackingNumber == key) return i;
     return -1;
 }
 
