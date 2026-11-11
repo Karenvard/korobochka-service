@@ -101,6 +101,7 @@ bool validClientName(const string& name) {
     if (name.empty()) return false;
     bool hasLetter = false;
     bool previousSpace = true;
+    bool previousApostrophe = false;
     for (size_t i = 0; i < name.size();) {
         unsigned char c = static_cast<unsigned char>(name[i]);
         unsigned int cp = 0;
@@ -125,19 +126,25 @@ bool validClientName(const string& name) {
             cp = (cp << 6) | (next & 0x3F);
         }
         if (cp == ' ') {
-            if (previousSpace) return false;
+            if (previousSpace || previousApostrophe) return false;
             previousSpace = true;
+        }
+        else if (cp == '\''  cp == 0x2019  cp == 0x02BC) {
+            if (previousSpace || previousApostrophe) return false;
+            previousApostrophe = true;
+        }
         }
         else if ((cp >= 'A' && cp <= 'Z') ||
             (cp >= 'a' && cp <= 'z') ||
             (cp >= 0x0400 && cp <= 0x052F)) {
-            hasLetter = true;
-            previousSpace = false;
+        hasLetter = true;
+        previousSpace = false;
+        previousApostrophe = false;
         }
         else return false;
         i += count;
     }
-    return hasLetter && !previousSpace;
+return hasLetter && !previousSpace && !previousApostrophe;
 }
 
 void inputOrder(Order& order) {
